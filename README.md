@@ -1,1 +1,5 @@
 Trata-se de um aplicativo mobile desenvolvido no Android Studio, utilizando a linguagem Java. O app consiste em um quiz sobre programação com 10 questões. Ao final, a classificação do usuário é definida de acordo com a quantidade de respostas corretas, indicando se ele possui nível Júnior, Pleno ou Sênior.
+
+Grupo:
+Gabriel Aurélio Vietehesky Silveira
+João Victor Alves Gotti
