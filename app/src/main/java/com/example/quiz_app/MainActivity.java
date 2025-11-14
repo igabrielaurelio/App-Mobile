@@ -25,12 +25,20 @@ public class MainActivity extends AppCompatActivity {
     // Variável para guardar a pontuação do jogador. Começa em 0.
     private int score = 0;
 
+    // --- NOVA VARIÁVEL ---
+    // Variável para guardar o nome do usuário vindo da StartActivity
+    private String userName;
+
     // --- Método Principal (executado quando a tela é criada) ---
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Define qual arquivo de layout (XML) essa Activity vai usar.
         setContentView(R.layout.activity_main);
+
+        // --- NOVO CÓDIGO ---
+        // Pega o nome do usuário que foi enviado pela StartActivity
+        userName = getIntent().getStringExtra("USER_NAME");
 
         // Associa as variáveis declaradas acima com os componentes visuais do arquivo XML.
         tvQuestion = findViewById(R.id.tvQuestion);
@@ -152,13 +160,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // --- Método para Mostrar a Tela de Resultado ---
+    // --- Método para Mostrar a Tela de Resultado (MODIFICADO) ---
     private void showResult() {
         // Cria uma "intenção" (Intent) para navegar da tela atual (MainActivity) para a ResultActivity.
         Intent intent = new Intent(MainActivity.this, ResultActivity.class);
         // Adiciona informações extras na Intent que serão enviadas para a próxima tela.
         intent.putExtra("SCORE", score); // Envia a pontuação final.
         intent.putExtra("TOTAL_QUESTIONS", questionList.size()); // Envia o número total de perguntas.
+
+        // --- NOVO CÓDIGO ---
+        // Envia o nome do usuário para a tela de resultado
+        intent.putExtra("USER_NAME", userName);
+
         // Inicia a nova tela.
         startActivity(intent);
         // Finaliza a tela atual (MainActivity) para que o usuário não possa voltar para o quiz usando o botão "Voltar".
