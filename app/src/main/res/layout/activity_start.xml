@@ -1,34 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="24dp"
-    tools:context=".StartActivity">
+    android:background="@color/background_app"
+    android:padding="24dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bem-vindo ao Quiz!"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="32dp"/>
-
-    <EditText
-        android:id="@+id/etName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Digite seu nome"
-        android:inputType="textPersonName"
-        android:maxLines="1"
-        android:layout_marginBottom="24dp" />
+        android:orientation="vertical"
+        android:background="@drawable/bg_card_rounded"
+        android:elevation="8dp"
+        android:padding="32dp">
 
-    <Button
-        android:id="@+id/btnStartQuiz"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Começar Quiz" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dev Quiz"
+            android:textColor="@color/colorPrimary"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Teste seu conhecimento"
+            android:textColor="@color/text_secondary"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="32dp"/>
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:drawable/editbox_background_normal"
+            android:hint="Digite seu nome..."
+            android:inputType="textPersonName"
+            android:paddingStart="12dp"
+            android:layout_marginBottom="24dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnStartQuiz"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_button_rounded"
+            android:text="COMEÇAR O DESAFIO"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 </LinearLayout>
