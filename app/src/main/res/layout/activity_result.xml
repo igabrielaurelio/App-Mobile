@@ -3,73 +3,94 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
+    android:background="@color/ide_background"
     android:gravity="center"
     android:padding="24dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Resultado Final"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:alpha="0.8"
-        android:layout_marginBottom="16dp"/>
+        android:text="BUILD SUCCESSFUL"
+        android:fontFamily="monospace"
+        android:textColor="@color/ide_green"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Execution time: 4m 20s"
+        android:fontFamily="monospace"
+        android:textColor="@color/ide_comment"
+        android:textSize="12sp"
+        android:layout_marginBottom="32dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/bg_card_rounded"
-        android:padding="32dp">
+        android:background="@drawable/bg_terminal_card"
+        android:padding="24dp">
 
         <TextView
             android:id="@+id/tvScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="8/10"
-            android:textSize="48sp"
-            android:textColor="@color/colorPrimary"
+            android:text="Score: 8/10"
+            android:fontFamily="monospace"
+            android:textColor="@color/ide_purple"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvClassification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Excelente!"
-            android:textSize="20sp"
-            android:textColor="@color/text_primary"
-            android:textStyle="bold" />
+            android:layout_marginTop="12dp"
+            android:text="Level: Senior Dev"
+            android:fontFamily="monospace"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#E0E0E0"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"/>
+            android:background="@color/ide_comment"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
             android:id="@+id/tvRanking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ranking..."
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:textColor="@color/text_secondary" />
-
+            android:text="> Loading leaderboard..."
+            android:fontFamily="monospace"
+            android:textColor="@color/ide_cyan"
+            android:textSize="14sp" />
     </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnReset"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_code_button"
+        android:backgroundTint="@color/ide_red"
+        android:text="rm -rf ranking (RESET)"
+        android:fontFamily="monospace"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnRestart"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/bg_button_rounded"
-        android:backgroundTint="@color/colorAccent"
-        android:text="JOGAR NOVAMENTE"
-        android:textColor="@color/text_primary"
+        android:background="@drawable/bg_code_button"
+        android:text="./restart.sh"
+        android:fontFamily="monospace"
+        android:textColor="@color/ide_green"
         android:textStyle="bold" />
 
 </LinearLayout>

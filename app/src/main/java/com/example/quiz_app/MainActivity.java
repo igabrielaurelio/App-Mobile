@@ -1,180 +1,229 @@
 package com.example.quiz_app;
 
-// Importações de classes necessárias do Android para o aplicativo funcionar.
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    // --- Declaração das Variáveis da Classe ---
-
-    // Variáveis para os componentes da interface gráfica (elementos da tela).
+    // --- Variáveis da Classe ---
     private TextView tvQuestion;
     private Button btnOption1, btnOption2, btnOption3, btnOption4;
 
-    // Lista que vai armazenar todas as perguntas do quiz.
     private List<Question> questionList;
-    // Variável para controlar qual pergunta está sendo exibida no momento. Começa em 0 (a primeira).
     private int currentQuestionIndex = 0;
-    // Variável para guardar a pontuação do jogador. Começa em 0.
     private int score = 0;
-
-    // --- NOVA VARIÁVEL ---
-    // Variável para guardar o nome do usuário vindo da StartActivity
     private String userName;
 
-    // --- Método Principal (executado quando a tela é criada) ---
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Define qual arquivo de layout (XML) essa Activity vai usar.
         setContentView(R.layout.activity_main);
 
-        // --- NOVO CÓDIGO ---
-        // Pega o nome do usuário que foi enviado pela StartActivity
+        // Pega o nome do usuário vindo da StartActivity
         userName = getIntent().getStringExtra("USER_NAME");
 
-        // Associa as variáveis declaradas acima com os componentes visuais do arquivo XML.
+        // Vincula os componentes da tela
         tvQuestion = findViewById(R.id.tvQuestion);
         btnOption1 = findViewById(R.id.btnOption1);
         btnOption2 = findViewById(R.id.btnOption2);
         btnOption3 = findViewById(R.id.btnOption3);
         btnOption4 = findViewById(R.id.btnOption4);
 
-        // Chama os métodos para inicializar o quiz.
-        loadQuestions(); // Carrega as perguntas na memória.
-        showQuestion();  // Exibe a primeira pergunta na tela.
+        // Inicializa o jogo
+        loadQuestions();
+        showQuestion();
 
-        // Configura o que acontece quando cada botão de opção é clicado.
-        // A seta "->" indica uma função lambda, uma forma curta de escrever um listener.
-        btnOption1.setOnClickListener(v -> checkAnswer(0)); // Se clicar no botão 1, checa a resposta de índice 0.
-        btnOption2.setOnClickListener(v -> checkAnswer(1)); // Se clicar no botão 2, checa a resposta de índice 1.
-        btnOption3.setOnClickListener(v -> checkAnswer(2)); // E assim por diante...
+        // Configura os cliques dos botões
+        btnOption1.setOnClickListener(v -> checkAnswer(0));
+        btnOption2.setOnClickListener(v -> checkAnswer(1));
+        btnOption3.setOnClickListener(v -> checkAnswer(2));
         btnOption4.setOnClickListener(v -> checkAnswer(3));
     }
 
-    // --- Método para Carregar as Perguntas ---
+    // --- Método GIGANTE com 100+ Perguntas ---
     private void loadQuestions() {
-        questionList = Arrays.asList(
-                new Question(
-                        "Qual a principal função da linguagem HTML?",
-                        Arrays.asList("Estilizar páginas", "Estruturar o conteúdo de uma página web", "Criar a lógica do servidor", "Gerenciar bancos de dados"),
-                        1
-                ),
-                new Question(
-                        "O que é uma 'variável' em programação?",
-                        Arrays.asList("Um erro no código", "Um comando de repetição", "Um espaço na memória para guardar um valor", "O nome do programa"),
-                        2
-                ),
-                new Question(
-                        "Qual comando é usado para repetir um bloco de código várias vezes?",
-                        Arrays.asList("if / else", "Uma variável", "Um laço (loop), como 'for'", "Um comentário //"),
-                        2
-                ),
-                new Question(
-                        "Para que serve a tecnologia CSS?",
-                        Arrays.asList("Para estilizar e dar design a páginas web", "Para guardar dados", "Para criar a estrutura da página", "Para definir a lógica de um app"),
-                        0
-                ),
-                new Question(
-                        "Como é chamado um erro em um programa de computador?",
-                        Arrays.asList("Feature", "Bug", "Comentário", "Função"),
-                        1
-                ),
-                new Question(
-                        "Qual estrutura é usada para tomar decisões no código, como 'se isso for verdade, faça aquilo'?",
-                        Arrays.asList("loop 'for'", "função ()", "variável", "condicional 'if'"),
-                        3
-                ),
-                new Question(
-                        "Que tipo de dado é usado para armazenar texto, como um nome de uma pessoa?",
-                        Arrays.asList("Integer (inteiro)", "Boolean (booleano)", "String (texto)", "Float (flutuante)"),
-                        2
-                ),
-                new Question(
-                        "Qual o propósito de um comentário no código, iniciado com '//'?",
-                        Arrays.asList("Ser executado pelo computador", "Aumentar a velocidade do programa", "Explicar o código para outros humanos", "Definir o título do programa"),
-                        2
-                ),
-                new Question(
-                        "Em programação, o que é um algoritmo?",
-                        Arrays.asList("O nome de uma linguagem", "Um componente de computador", "Uma sequência de passos para resolver um problema", "Um erro de digitação"),
-                        2
-                ),
-                new Question(
-                        "Qual o resultado da operação '2 + 2' em quase todas as linguagens de programação?",
-                        Arrays.asList("'22'", "3", "4", "Erro"),
-                        2
-                )
-        );
+        List<Question> allQuestions = new ArrayList<>();
+
+        // --- HTML & Web ---
+        allQuestions.add(new Question("Qual a principal função do HTML?", Arrays.asList("Estilizar", "Estruturar conteúdo", "Lógica", "Banco de dados"), 1));
+        allQuestions.add(new Question("Para que serve o CSS?", Arrays.asList("Design e Estilo", "Armazenar dados", "Estrutura", "Compilar código"), 0));
+        allQuestions.add(new Question("O que significa WWW?", Arrays.asList("World Web Wide", "Web World Wide", "World Wide Web", "Wide World Web"), 2));
+        allQuestions.add(new Question("Qual tag HTML cria um parágrafo?", Arrays.asList("<p>", "<para>", "<text>", "<pg>"), 0));
+        allQuestions.add(new Question("Qual tag HTML cria um link?", Arrays.asList("<link>", "<a>", "<url>", "<href>"), 1));
+        allQuestions.add(new Question("O que é um 'browser'?", Arrays.asList("Um servidor", "Um editor de texto", "Um navegador web", "Uma linguagem"), 2));
+        allQuestions.add(new Question("Qual destes não é um navegador?", Arrays.asList("Chrome", "Firefox", "Edge", "Windows"), 3));
+        allQuestions.add(new Question("Em CSS, como mudamos a cor do texto?", Arrays.asList("font-color", "text-color", "color", "foreground"), 2));
+        allQuestions.add(new Question("O que significa HTTP?", Arrays.asList("HyperText Transfer Protocol", "High Transfer Text Protocol", "Hyper Transfer Text Program", "Home Tool Transfer Protocol"), 0));
+        allQuestions.add(new Question("Qual a versão mais moderna do HTML?", Arrays.asList("HTML 2", "HTML 4", "HTML X", "HTML 5"), 3));
+
+        // --- Lógica de Programação ---
+        allQuestions.add(new Question("O que é uma 'variável'?", Arrays.asList("Um erro", "Um loop", "Espaço na memória para valor", "Um comando de saída"), 2));
+        allQuestions.add(new Question("Qual comando repete código?", Arrays.asList("if", "var", "loop / for", "string"), 2));
+        allQuestions.add(new Question("O que é um algoritmo?", Arrays.asList("Uma peça de PC", "Sequência de passos para resolver um problema", "Um vírus", "Uma linguagem"), 1));
+        allQuestions.add(new Question("O que é um 'bug'?", Arrays.asList("Um recurso novo", "Uma falha ou erro no código", "Um tipo de variável", "Um antivírus"), 1));
+        allQuestions.add(new Question("Qual estrutura é usada para decisões?", Arrays.asList("for", "while", "if / else", "print"), 2));
+        allQuestions.add(new Question("O que é um loop infinito?", Arrays.asList("Um loop que nunca para", "Um loop muito rápido", "Um loop que roda 1000 vezes", "Uma variável grande"), 0));
+        allQuestions.add(new Question("Para que servem comentários?", Arrays.asList("Para o computador ler", "Para deixar o código mais rápido", "Para explicar o código para humanos", "Para colorir o editor"), 2));
+        allQuestions.add(new Question("Qual o valor booleano para 'falso'?", Arrays.asList("0", "null", "false", "fake"), 2));
+        allQuestions.add(new Question("O que é concatenação?", Arrays.asList("Apagar texto", "Juntar duas strings", "Dividir números", "Compilar código"), 1));
+        allQuestions.add(new Question("O índice de um array começa em:", Arrays.asList("0", "1", "-1", "10"), 0));
+
+        // --- Java & OOP ---
+        allQuestions.add(new Question("Qual símbolo termina uma instrução Java?", Arrays.asList(".", ":", ";", ","), 2));
+        allQuestions.add(new Question("Como imprime no console em Java?", Arrays.asList("print()", "System.out.println()", "console.log()", "echo"), 1));
+        allQuestions.add(new Question("Qual tipo de dado armazena texto?", Arrays.asList("int", "boolean", "String", "char"), 2));
+        allQuestions.add(new Question("Qual tipo de dado armazena inteiros?", Arrays.asList("String", "float", "int", "boolean"), 2));
+        allQuestions.add(new Question("O que é uma Classe?", Arrays.asList("Um objeto pronto", "Um modelo/molde para objetos", "Uma variável", "Um método"), 1));
+        allQuestions.add(new Question("O que é um Objeto?", Arrays.asList("Uma instância de uma classe", "Um arquivo de texto", "Um erro", "Um comando"), 0));
+        allQuestions.add(new Question("O que significa 'public'?", Arrays.asList("Acesso restrito", "Acesso a qualquer classe", "Acesso apenas na pasta", "Acesso protegido"), 1));
+        allQuestions.add(new Question("Qual método inicia um programa Java?", Arrays.asList("start()", "init()", "run()", "main()"), 3));
+        allQuestions.add(new Question("O que é herança?", Arrays.asList("Quando uma classe ganha dinheiro", "Quando uma classe herda características de outra", "Quando deletamos um objeto", "Um erro de memória"), 1));
+        allQuestions.add(new Question("Java é uma linguagem:", Arrays.asList("Estruturada", "Funcional pura", "Orientada a Objetos", "De baixo nível"), 2));
+
+        // --- Hardware ---
+        allQuestions.add(new Question("O que significa CPU?", Arrays.asList("Central Processing Unit", "Computer Personal Unit", "Central Power Unit", "Computer Processing User"), 0));
+        allQuestions.add(new Question("Qual componente armazena dados permanentemente?", Arrays.asList("RAM", "Processador", "HD / SSD", "Placa de Vídeo"), 2));
+        allQuestions.add(new Question("Qual a função da RAM?", Arrays.asList("Armazenar arquivos para sempre", "Armazenar dados temporários em uso", "Processar gráficos", "Resfriar o PC"), 1));
+        allQuestions.add(new Question("O que é a GPU?", Arrays.asList("Unidade de Processamento Gráfico", "Gerenciador de Programas", "Grande Processador Unificado", "Gabinete Para Usuário"), 0));
+        allQuestions.add(new Question("Qual destes é dispositivo de entrada?", Arrays.asList("Monitor", "Impressora", "Teclado", "Caixa de som"), 2));
+        allQuestions.add(new Question("Qual destes é dispositivo de saída?", Arrays.asList("Mouse", "Microfone", "Monitor", "Webcam"), 2));
+        allQuestions.add(new Question("O que significa SSD?", Arrays.asList("Super Speed Drive", "Solid State Drive", "System Storage Disk", "Silicon State Disk"), 1));
+        allQuestions.add(new Question("O sistema binário usa quais números?", Arrays.asList("1 e 2", "0 e 9", "0 e 1", "1 e 10"), 2));
+        allQuestions.add(new Question("Quantos bits formam um Byte?", Arrays.asList("4", "8", "16", "32"), 1));
+        allQuestions.add(new Question("Qual a função da Placa Mãe?", Arrays.asList("Gerar energia", "Conectar todos os componentes", "Armazenar fotos", "Processar vídeo"), 1));
+
+        // --- Android ---
+        allQuestions.add(new Question("Qual linguagem é oficial do Android?", Arrays.asList("Swift", "Kotlin / Java", "PHP", "Ruby"), 1));
+        allQuestions.add(new Question("O que é um APK?", Arrays.asList("Um processador", "Um arquivo de instalação Android", "Uma marca", "Um erro"), 1));
+        allQuestions.add(new Question("Loja oficial de apps do Google?", Arrays.asList("App Store", "Google Market", "Play Store", "Android Store"), 2));
+        allQuestions.add(new Question("O que é uma Activity?", Arrays.asList("Um banco de dados", "Uma tela da aplicação", "Um botão", "Uma imagem"), 1));
+        allQuestions.add(new Question("Qual arquivo define permissões?", Arrays.asList("MainActivity.java", "colors.xml", "AndroidManifest.xml", "build.gradle"), 2));
+        allQuestions.add(new Question("Onde ficam os layouts?", Arrays.asList("pasta java", "pasta res/layout", "pasta manifests", "pasta gradle"), 1));
+        allQuestions.add(new Question("Para que serve o Logcat?", Arrays.asList("Desenhar telas", "Ver logs e erros", "Instalar o app", "Editar código"), 1));
+        allQuestions.add(new Question("O que é o XML no Android?", Arrays.asList("Linguagem de programação", "Marcação para layouts", "Banco de dados", "Compilador"), 1));
+        allQuestions.add(new Question("Nome do mascote Android?", Arrays.asList("Bugdroid", "Robot", "Andy", "Droid"), 0));
+        allQuestions.add(new Question("Android é baseado em:", Arrays.asList("Windows", "Linux", "MacOS", "DOS"), 1));
+
+        // --- Redes ---
+        allQuestions.add(new Question("O que é um IP?", Arrays.asList("Internet Provider", "Internal Protocol", "Internet Protocol", "Image Processor"), 2));
+        allQuestions.add(new Question("O que é Wi-Fi?", Arrays.asList("Internet com fio", "Rede sem fio", "Um computador", "Um site"), 1));
+        allQuestions.add(new Question("O que significa LAN?", Arrays.asList("Local Area Network", "Large Area Network", "Long Access Node", "Link Area Net"), 0));
+        allQuestions.add(new Question("Função do Roteador?", Arrays.asList("Criar imagens", "Encaminhar dados entre redes", "Armazenar sites", "Proteger vírus"), 1));
+        allQuestions.add(new Question("O que é a Nuvem?", Arrays.asList("Servidores na internet", "Um satélite", "Um pen drive", "O clima"), 0));
+        allQuestions.add(new Question("O que significa URL?", Arrays.asList("Uniform Resource Locator", "Ultra Rapid Link", "User Resource Link", "Union Rom List"), 0));
+        allQuestions.add(new Question("Para que serve o DNS?", Arrays.asList("Criar sites", "Traduzir domínios em IPs", "Bloquear vírus", "Acelerar a internet"), 1));
+        allQuestions.add(new Question("O que é Ping?", Arrays.asList("Um jogo", "Latência da rede", "Um vírus", "Um cabo"), 1));
+        allQuestions.add(new Question("Protocolo de emails?", Arrays.asList("HTTP", "FTP", "SMTP", "SSH"), 2));
+        allQuestions.add(new Question("O que é Firewall?", Arrays.asList("Parede de tijolos", "Segurança de rede", "Navegador", "Cabo de rede"), 1));
+
+        // --- Segurança & Variedades ---
+        allQuestions.add(new Question("O que é Backup?", Arrays.asList("Um vírus", "Cópia de segurança", "Programa pirata", "Peça do PC"), 1));
+        allQuestions.add(new Question("O que é Phishing?", Arrays.asList("Pescaria", "Roubo de dados por engano", "Antivírus", "Senha"), 1));
+        allQuestions.add(new Question("O que é Criptografia?", Arrays.asList("Moeda", "Proteger informações", "Gráfico", "Linguagem"), 1));
+        allQuestions.add(new Question("Melhor prática para senhas?", Arrays.asList("Usar '123456'", "Datas de nascimento", "Longas e complexas", "Anotar no monitor"), 2));
+        allQuestions.add(new Question("O que é Malware?", Arrays.asList("Hardware ruim", "Software malicioso", "Bom programa", "Site de compras"), 1));
+        allQuestions.add(new Question("O que é Open Source?", Arrays.asList("Pago", "Código aberto", "Processador", "Internet grátis"), 1));
+        allQuestions.add(new Question("Qual é Sistema Operacional?", Arrays.asList("Word", "Excel", "Linux", "Paint"), 2));
+        allQuestions.add(new Question("O que é SQL?", Arrays.asList("Linguagem de Banco de Dados", "Jogo", "Som", "PC"), 0));
+        allQuestions.add(new Question("Quem fundou a Microsoft?", Arrays.asList("Steve Jobs", "Bill Gates", "Mark Zuckerberg", "Elon Musk"), 1));
+        allQuestions.add(new Question("Criador do Facebook?", Arrays.asList("Bill Gates", "Jeff Bezos", "Mark Zuckerberg", "Tim Cook"), 2));
+        allQuestions.add(new Question("Empresa do iPhone?", Arrays.asList("Samsung", "Apple", "Nokia", "Sony"), 1));
+        allQuestions.add(new Question("O que é 4K?", Arrays.asList("4000 cores", "Resolução ~4000px larg", "4 mm", "4 cabos"), 1));
+        allQuestions.add(new Question("O que é Bluetooth?", Arrays.asList("Dente azul", "Conexão sem fio curta", "Cabo azul", "Satélite"), 1));
+        allQuestions.add(new Question("O que é IA?", Arrays.asList("Robô", "Simulação de inteligência", "Processador", "Ficção"), 1));
+        allQuestions.add(new Question("O que é GitHub?", Arrays.asList("Jogo", "Hospedagem de código", "Memória", "Vírus"), 1));
+        allQuestions.add(new Question("Comando Git para salvar?", Arrays.asList("git push", "git pull", "git commit", "git save"), 2));
+        allQuestions.add(new Question("O que é um Pixel?", Arrays.asList("Ponto na tela", "Peça do mouse", "Som", "Cor"), 0));
+        allQuestions.add(new Question("O que é VR?", Arrays.asList("Video Real", "Realidade Virtual", "Virus Risk", "Very Rapid"), 1));
+        allQuestions.add(new Question("Banco de dados NoSQL?", Arrays.asList("MySQL", "PostgreSQL", "MongoDB", "Oracle"), 2));
+        allQuestions.add(new Question("O que é JSON?", Arrays.asList("Pessoa", "Formato de dados", "Linguagem", "Editor"), 1));
+        allQuestions.add(new Question("O que é API?", Arrays.asList("Application Programming Interface", "Apple Program", "All People", "App Info"), 0));
+        allQuestions.add(new Question("Imprimir em Python?", Arrays.asList("echo", "System.out", "print()", "printf"), 2));
+        allQuestions.add(new Question("O que é Framework?", Arrays.asList("Dever de casa", "Estrutura base", "Monitor", "Teclado"), 1));
+        allQuestions.add(new Question("O que é Frontend?", Arrays.asList("Banco de dados", "Parte visual", "Servidor", "Rede"), 1));
+        allQuestions.add(new Question("O que é Backend?", Arrays.asList("Tela", "Lógica servidor/dados", "Mouse", "Design"), 1));
+        allQuestions.add(new Question("Linguagem do React?", Arrays.asList("Java", "Python", "JavaScript", "C#"), 2));
+        allQuestions.add(new Question("O que é IDE?", Arrays.asList("Integrated Development Environment", "Internet Data", "Disk Error", "Image Editor"), 0));
+        allQuestions.add(new Question("O que é Full Stack?", Arrays.asList("Hambúrguer", "Dev Front e Back", "Erro", "PC potente"), 1));
+        allQuestions.add(new Question("Atalho copiar?", Arrays.asList("Ctrl+V", "Ctrl+X", "Ctrl+C", "Alt+F4"), 2));
+        allQuestions.add(new Question("Atalho colar?", Arrays.asList("Ctrl+C", "Ctrl+V", "Ctrl+Z", "Ctrl+P"), 1));
+        allQuestions.add(new Question("Atalho desfazer?", Arrays.asList("Ctrl+Z", "Ctrl+Y", "Ctrl+D", "Ctrl+S"), 0));
+        allQuestions.add(new Question("O que é spam?", Arrays.asList("Comida", "Lixo eletrônico", "Vírus", "Site"), 1));
+        allQuestions.add(new Question("Linguagem compilada?", Arrays.asList("Python", "JavaScript", "C++", "HTML"), 2));
+        allQuestions.add(new Question("Linguagem interpretada?", Arrays.asList("C", "C++", "Python", "Assembly"), 2));
+        allQuestions.add(new Question("O que é SaaS?", Arrays.asList("Software as a Service", "System as Server", "Save as Source", "Storage Service"), 0));
+        allQuestions.add(new Question("Pai da computação?", Arrays.asList("Bill Gates", "Alan Turing", "Steve Jobs", "Musk"), 1));
+        allQuestions.add(new Question("Primeira programadora?", Arrays.asList("Ada Lovelace", "Marie Curie", "Grace Hopper", "Victoria"), 0));
+        allQuestions.add(new Question("Sistema do iPhone?", Arrays.asList("Android", "Windows", "iOS", "Blackberry"), 2));
+        allQuestions.add(new Question("O que é IoT?", Arrays.asList("Internet das Coisas", "Input Text", "Internal Tech", "Image Time"), 0));
+        allQuestions.add(new Question("O que é Drone?", Arrays.asList("Carro", "Veículo aéreo não tripulado", "Robô", "Satélite"), 1));
+        allQuestions.add(new Question("O que é 5G?", Arrays.asList("5 GB", "5ª geração móvel", "5 Games", "5 Google"), 1));
+        allQuestions.add(new Question("O que é Servidor?", Arrays.asList("Garçom", "PC que fornece serviços", "Cabo", "Monitor"), 1));
+        allQuestions.add(new Question("O que são Cookies?", Arrays.asList("Biscoitos", "Dados salvos pelo navegador", "Vírus", "Imagens"), 1));
+        allQuestions.add(new Question("O que é Cache?", Arrays.asList("Dinheiro", "Memória rápida", "Caixa", "Erro"), 1));
+        allQuestions.add(new Question("O que é VPN?", Arrays.asList("Virtual Private Network", "Video Network", "Virtual Public", "Voice Number"), 0));
+        allQuestions.add(new Question("O que é Biometria?", Arrays.asList("Bio", "Autenticação física", "Senha", "Cartão"), 1));
+        allQuestions.add(new Question("O que é Dark Mode?", Arrays.asList("Perigo", "Tema escuro", "Desligado", "Sem net"), 1));
+
+        // --- ALEATORIEDADE ---
+        // 1. Embaralha todas as perguntas
+        Collections.shuffle(allQuestions);
+
+        // 2. Pega apenas as 10 primeiras para este jogo
+        if (allQuestions.size() > 10) {
+            questionList = allQuestions.subList(0, 10);
+        } else {
+            questionList = allQuestions;
+        }
     }
 
-    // --- Método para Exibir uma Pergunta na Tela ---
     private void showQuestion() {
-        // Pega a pergunta atual da lista, usando o índice "currentQuestionIndex".
         Question currentQuestion = questionList.get(currentQuestionIndex);
-        // Atualiza o texto do TextView da pergunta.
-        tvQuestion.setText(currentQuestion.getText());
-        // Atualiza o texto de cada botão com as opções da pergunta atual.
+
+        // Formato Hacker: "Questão 1/10: ..."
+        tvQuestion.setText((currentQuestionIndex + 1) + "/10: " + currentQuestion.getText());
+
         btnOption1.setText(currentQuestion.getOptions().get(0));
         btnOption2.setText(currentQuestion.getOptions().get(1));
         btnOption3.setText(currentQuestion.getOptions().get(2));
         btnOption4.setText(currentQuestion.getOptions().get(3));
     }
 
-    // --- Método para Checar a Resposta do Usuário ---
     private void checkAnswer(int selectedAnswerIndex) {
-        // Pega a pergunta atual para poder comparar as respostas.
         Question currentQuestion = questionList.get(currentQuestionIndex);
 
-        // Compara o índice do botão clicado com o índice da resposta correta.
         if (selectedAnswerIndex == currentQuestion.getCorrectAnswerIndex()) {
-            // Se a resposta estiver correta...
-            score++; // Aumenta a pontuação.
-            // Mostra uma mensagem curta na tela dizendo "Resposta Certa!".
-            Toast.makeText(this, "Resposta Certa!", Toast.LENGTH_SHORT).show();
+            score++;
+            Toast.makeText(this, "[SUCCESS] Resposta Correta!", Toast.LENGTH_SHORT).show();
         } else {
-            // Se a resposta estiver errada...
-            // Pega o texto da resposta correta para mostrar ao usuário.
             String correctAnswer = currentQuestion.getOptions().get(currentQuestion.getCorrectAnswerIndex());
-            // Mostra uma mensagem curta dizendo qual era a resposta certa.
-            Toast.makeText(this, "Errado! A resposta era " + correctAnswer, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "[ERROR] Correto era: " + correctAnswer, Toast.LENGTH_SHORT).show();
         }
 
-        // Avança para a próxima pergunta.
         currentQuestionIndex++;
 
-        // Verifica se ainda existem perguntas na lista.
         if (currentQuestionIndex < questionList.size()) {
-            // Se sim, chama o método para mostrar a próxima pergunta.
             showQuestion();
         } else {
-            // Se não, o quiz acabou! Chama o método para mostrar o resultado final.
             showResult();
         }
     }
 
-    // --- Método para Mostrar a Tela de Resultado (MODIFICADO) ---
     private void showResult() {
-        // Cria uma "intenção" (Intent) para navegar da tela atual (MainActivity) para a ResultActivity.
         Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-        // Adiciona informações extras na Intent que serão enviadas para a próxima tela.
-        intent.putExtra("SCORE", score); // Envia a pontuação final.
-        intent.putExtra("TOTAL_QUESTIONS", questionList.size()); // Envia o número total de perguntas.
-
-        // --- NOVO CÓDIGO ---
-        // Envia o nome do usuário para a tela de resultado
+        intent.putExtra("SCORE", score);
+        intent.putExtra("TOTAL_QUESTIONS", questionList.size());
         intent.putExtra("USER_NAME", userName);
-
-        // Inicia a nova tela.
         startActivity(intent);
-        // Finaliza a tela atual (MainActivity) para que o usuário não possa voltar para o quiz usando o botão "Voltar".
         finish();
     }
 }

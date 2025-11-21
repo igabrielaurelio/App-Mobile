@@ -3,7 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="colorPrimary">#6200EE</color> <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color> <color name="background_app">#F2F2F2</color> <color name="text_primary">#333333</color>
-    <color name="text_secondary">#757575</color>
+    <color name="ide_background">#282A36</color>  <color name="ide_panel">#44475A</color>       <color name="ide_purple">#BD93F9</color>      <color name="ide_green">#50FA7B</color>       <color name="ide_cyan">#8BE9FD</color>        <color name="ide_comment">#6272A4</color>     <color name="ide_red">#FF5555</color>         <color name="colorPrimary">#BD93F9</color>
+    <color name="colorPrimaryDark">#1E1F29</color>
+    <color name="colorAccent">#50FA7B</color>
 </resources>
