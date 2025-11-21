@@ -79,7 +79,7 @@ O aplicativo atende aos requisitos de CRUD (Create, Read, Update, Delete) atrav�
 1.  Clone este repositório.
 2.  Abra o projeto no **Android Studio**.
 3.  Aguarde a sincronização do Gradle.
-4.  Execute em um emulador (ex: Pixel 6 API 34) ou dispositivo físico via USB.
+4.  Execute em um emulador (ex: Pixel 6 API 34).
 
 ---
 *Projeto desenvolvido para a disciplina de Computação Móvel - 2025.*
