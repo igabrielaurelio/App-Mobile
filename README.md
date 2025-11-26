@@ -1,5 +1,3 @@
-<img width="1916" height="1034" alt="{36EC27A2-60E7-48A3-8A1D-B0ECA072B5B9}" src="https://github.com/user-attachments/assets/8bb5c54f-06db-4902-b6ca-f88d056b9766" />
-
 Aplicativo Android nativo desenvolvido como projeto final da disciplina de **Computação Móvel**. O app consiste em um Quiz interativo sobre tecnologia e programação, com persistência de dados, sistema de ranking e uma interface estilizada.
 
 ## Integrantes do Grupo
@@ -71,7 +69,7 @@ O aplicativo atende aos requisitos de CRUD (Create, Read, Update, Delete) atrav�
 
 | Tela Inicial (Login) | Tela do Quiz | Resultado e Ranking |
 | :---: | :---: | :---: |
-| *(Insira aqui o print da tela de Login)* | *(Insira aqui o print de uma pergunta)* | *(Insira aqui o print do Ranking)* |
+| <img width="1916" height="1034" alt="{36EC27A2-60E7-48A3-8A1D-B0ECA072B5B9}" src="https://github.com/user-attachments/assets/8bb5c54f-06db-4902-b6ca-f88d056b9766" />| *(Insira aqui o print de uma pergunta)* | *(Insira aqui o print do Ranking)* |
 
 ---
 
