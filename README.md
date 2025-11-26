@@ -2,13 +2,13 @@
 
 Aplicativo Android nativo desenvolvido como projeto final da disciplina de **Computação Móvel**. O app consiste em um Quiz interativo sobre tecnologia e programação, com persistência de dados, sistema de ranking e uma interface estilizada.
 
-##Integrantes do Grupo
+## Integrantes do Grupo
 * **Gabriel Aurélio Vietehesky Silveira**
 * **João Victor Alves Gotti**
 
 ---
 
-##Objetivo do App
+## Objetivo do App
 Oferecer uma ferramenta lúdica para estudantes e entusiastas de tecnologia testarem seus conhecimentos. O aplicativo desafia o usuário com perguntas aleatórias sobre diversos temas (Java, Hardware, Redes, Android), classifica seu nível de conhecimento (Junior, Full-Stack, Senior) e mantém um histórico de pontuações (Ranking).
 
 ---
@@ -23,7 +23,7 @@ Oferecer uma ferramenta lúdica para estudantes e entusiastas de tecnologia test
 
 ---
 
-##Estrutura do Banco de Dados (SQLite)
+## Estrutura do Banco de Dados (SQLite)
 
 O aplicativo utiliza a classe `SQLiteOpenHelper` para gerenciar um banco de dados local chamado `QuizBase.db`.
 
@@ -37,7 +37,7 @@ O aplicativo utiliza a classe `SQLiteOpenHelper` para gerenciar um banco de dado
 
 ---
 
-##Funcionalidades Implementadas (CRUD Completo)
+## Funcionalidades Implementadas (CRUD Completo)
 
 O aplicativo atende aos requisitos de CRUD (Create, Read, Update, Delete) através da gestão do Ranking:
 
