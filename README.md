@@ -1,4 +1,4 @@
-# 📱 Quiz App - Tech Edition (Hacker Theme)
+<img width="1916" height="1034" alt="{36EC27A2-60E7-48A3-8A1D-B0ECA072B5B9}" src="https://github.com/user-attachments/assets/0a83425c-1db9-4d00-8a0f-c223f88bbc9e" /># 📱 Quiz App - Tech Edition (Hacker Theme)
 
 Aplicativo Android nativo desenvolvido como projeto final da disciplina de **Computação Móvel**. O app consiste em um Quiz interativo sobre tecnologia e programação, com persistência de dados, sistema de ranking e uma interface estilizada.
 
@@ -83,3 +83,5 @@ O aplicativo atende aos requisitos de CRUD (Create, Read, Update, Delete) atrav�
 
 ---
 *Projeto desenvolvido para a disciplina de Computação Móvel - 2025.*
+<img width="1916" height="1034" alt="{36EC27A2-60E7-48A3-8A1D-B0ECA072B5B9}" src="https://github.com/user-attachments/assets/5a9de59e-b6cf-43ef-b71a-728c6d0527ad" />
+
