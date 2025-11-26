@@ -1,14 +1,12 @@
-<img width="1916" height="1034" alt="{36EC27A2-60E7-48A3-8A1D-B0ECA072B5B9}" src="https://github.com/user-attachments/assets/0a83425c-1db9-4d00-8a0f-c223f88bbc9e" /># 📱 Quiz App - Tech Edition (Hacker Theme)
-
 Aplicativo Android nativo desenvolvido como projeto final da disciplina de **Computação Móvel**. O app consiste em um Quiz interativo sobre tecnologia e programação, com persistência de dados, sistema de ranking e uma interface estilizada.
 
-## 👨‍💻 Integrantes do Grupo
+##Integrantes do Grupo
 * **Gabriel Aurélio Vietehesky Silveira**
 * **João Victor Alves Gotti**
 
 ---
 
-## 🎯 Objetivo do App
+##Objetivo do App
 Oferecer uma ferramenta lúdica para estudantes e entusiastas de tecnologia testarem seus conhecimentos. O aplicativo desafia o usuário com perguntas aleatórias sobre diversos temas (Java, Hardware, Redes, Android), classifica seu nível de conhecimento (Junior, Full-Stack, Senior) e mantém um histórico de pontuações (Ranking).
 
 ---
@@ -23,7 +21,7 @@ Oferecer uma ferramenta lúdica para estudantes e entusiastas de tecnologia test
 
 ---
 
-## 🗄 Estrutura do Banco de Dados (SQLite)
+##Estrutura do Banco de Dados (SQLite)
 
 O aplicativo utiliza a classe `SQLiteOpenHelper` para gerenciar um banco de dados local chamado `QuizBase.db`.
 
@@ -37,7 +35,7 @@ O aplicativo utiliza a classe `SQLiteOpenHelper` para gerenciar um banco de dado
 
 ---
 
-## ✅ Funcionalidades Implementadas (CRUD Completo)
+##Funcionalidades Implementadas (CRUD Completo)
 
 O aplicativo atende aos requisitos de CRUD (Create, Read, Update, Delete) através da gestão do Ranking:
 
@@ -60,14 +58,14 @@ O aplicativo atende aos requisitos de CRUD (Create, Read, Update, Delete) atrav�
 
 ---
 
-## 🎨 Diferenciais e UX
+## Diferenciais e UX
 * **Tema Hacker/IDE:** Interface escura inspirada em editores de código (VS Code/Dracula Theme), utilizando fontes monoespaçadas e cores neon (Roxo, Verde, Ciano).
 * **Perguntas Dinâmicas:** Banco de dados interno com **mais de 100 perguntas**. A cada nova partida, o app sorteia aleatoriamente 10 questões, garantindo que o jogo não seja repetitivo.
 * **Feedback Visual:** Mensagens de "Build Successful" ou logs de erro dependendo da ação do usuário.
 
 ---
 
-## 📸 Prints do Aplicativo
+## Prints do Aplicativo
 
 | Tela Inicial (Login) | Tela do Quiz | Resultado e Ranking |
 | :---: | :---: | :---: |
@@ -75,7 +73,7 @@ O aplicativo atende aos requisitos de CRUD (Create, Read, Update, Delete) atrav�
 
 ---
 
-## 🚀 Como Executar
+## Como Executar
 1.  Clone este repositório.
 2.  Abra o projeto no **Android Studio**.
 3.  Aguarde a sincronização do Gradle.
@@ -83,5 +81,4 @@ O aplicativo atende aos requisitos de CRUD (Create, Read, Update, Delete) atrav�
 
 ---
 *Projeto desenvolvido para a disciplina de Computação Móvel - 2025.*
-<img width="1916" height="1034" alt="{36EC27A2-60E7-48A3-8A1D-B0ECA072B5B9}" src="https://github.com/user-attachments/assets/5a9de59e-b6cf-43ef-b71a-728c6d0527ad" />
 
