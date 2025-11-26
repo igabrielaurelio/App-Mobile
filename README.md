@@ -1,3 +1,5 @@
+<img width="1916" height="1034" alt="{36EC27A2-60E7-48A3-8A1D-B0ECA072B5B9}" src="https://github.com/user-attachments/assets/8bb5c54f-06db-4902-b6ca-f88d056b9766" />
+
 Aplicativo Android nativo desenvolvido como projeto final da disciplina de **Computação Móvel**. O app consiste em um Quiz interativo sobre tecnologia e programação, com persistência de dados, sistema de ranking e uma interface estilizada.
 
 ##Integrantes do Grupo
@@ -11,7 +13,7 @@ Oferecer uma ferramenta lúdica para estudantes e entusiastas de tecnologia test
 
 ---
 
-## 🛠 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 * **Linguagem:** Java (JDK 11/17)
 * **IDE:** Android Studio Ladybug | 2024.2.1
 * **SDK Mínimo:** API 24 (Android 7.0)
