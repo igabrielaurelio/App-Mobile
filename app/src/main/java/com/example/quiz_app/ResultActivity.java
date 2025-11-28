@@ -2,18 +2,22 @@ package com.example.quiz_app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.List;
 
 public class ResultActivity extends AppCompatActivity {
 
-    // Instância do Banco de Dados
     private QuizDatabaseHelper dbHelper;
+    private ListView lvRanking;
+    private ArrayAdapter<Score> adapter;
+    private List<Score> rankingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +30,7 @@ public class ResultActivity extends AppCompatActivity {
         // --- Vinculação dos Componentes ---
         TextView tvScore = findViewById(R.id.tvScore);
         TextView tvClassification = findViewById(R.id.tvClassification);
-        TextView tvRanking = findViewById(R.id.tvRanking);
+        lvRanking = findViewById(R.id.lvRanking);
         Button btnRestart = findViewById(R.id.btnRestart);
         Button btnReset = findViewById(R.id.btnReset);
 
@@ -54,8 +58,18 @@ public class ResultActivity extends AppCompatActivity {
         }
         tvClassification.setText(classification);
 
-        // --- BANCO DE DADOS: Salvar e Carregar ---
-        saveAndLoadRanking(userName, score, tvRanking);
+        // --- BANCO DE DADOS: Salvar Resultado Atual ---
+        Score newScore = new Score(userName, score);
+        dbHelper.addScore(newScore);
+
+        // --- Carregar e Exibir Ranking ---
+        updateRankingList();
+
+        // --- EVENTO DE CLIQUE: ABRE O MENU DE OPÇÕES (EDITAR ou EXCLUIR) ---
+        lvRanking.setOnItemClickListener((parent, view, position, id) -> {
+            Score selectedScore = rankingList.get(position);
+            showOptionsDialog(selectedScore);
+        });
 
         // --- Botão: Reiniciar ---
         btnRestart.setOnClickListener(v -> {
@@ -65,36 +79,80 @@ public class ResultActivity extends AppCompatActivity {
             finish();
         });
 
-        // --- Botão: Resetar (Apagar Banco) ---
+        // --- Botão: Resetar (Apagar Tudo) ---
         btnReset.setOnClickListener(v -> {
-            // Chama o método DELETE do banco
-            dbHelper.deleteAllScores();
-
-            // Atualiza o visual
-            tvRanking.setText("> Database purged.\n> No records found.");
-            Toast.makeText(ResultActivity.this, "System: Memory cleared successfully.", Toast.LENGTH_SHORT).show();
+            // Pergunta antes de apagar tudo
+            new AlertDialog.Builder(this)
+                    .setTitle("Confirmar Reset")
+                    .setMessage("Tem certeza que deseja apagar TODO o histórico?")
+                    .setPositiveButton("Apagar Tudo", (dialog, which) -> {
+                        dbHelper.deleteAllScores();
+                        updateRankingList();
+                        Toast.makeText(ResultActivity.this, "System: Memory cleared.", Toast.LENGTH_SHORT).show();
+                    })
+                    .setNegativeButton("Cancelar", null)
+                    .show();
         });
     }
 
-    private void saveAndLoadRanking(String userName, int score, TextView tvRanking) {
-        // 1. CREATE: Salva o resultado atual no banco
-        Score newScore = new Score(userName, score);
-        dbHelper.addScore(newScore);
+    // --- Atualiza a Lista na Tela ---
+    private void updateRankingList() {
+        rankingList = dbHelper.getAllScores();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, rankingList);
+        lvRanking.setAdapter(adapter);
+    }
 
-        // 2. READ: Recupera a lista completa do banco (já ordenada)
-        List<Score> rankingList = dbHelper.getAllScores();
+    // --- 1. Menu de Escolha (Editar ou Excluir) ---
+    private void showOptionsDialog(Score score) {
+        String[] options = {"Editar Nome", "Excluir este Registro"};
 
-        // 3. Exibe na tela
-        StringBuilder rankingText = new StringBuilder("> LEADERBOARD_LOG:\n\n");
-        int maxEntriesToShow = 5;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Opções: " + score.getName());
+        builder.setItems(options, (dialog, which) -> {
+            if (which == 0) {
+                // Usuário clicou em Editar
+                showEditDialog(score);
+            } else if (which == 1) {
+                // Usuário clicou em Excluir
+                showDeleteDialog(score);
+            }
+        });
+        builder.show();
+    }
 
-        for (int i = 0; i < rankingList.size() && i < maxEntriesToShow; i++) {
-            Score s = rankingList.get(i);
-            // Formato: [1] Nome ... 10 pts
-            rankingText.append(String.format("[%d] %s ... %d pts\n",
-                    (i + 1), s.getName(), s.getPoints()));
-        }
+    // --- 2. Janela de Edição (UPDATE) ---
+    private void showEditDialog(Score score) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Editar Nome");
 
-        tvRanking.setText(rankingText.toString());
+        final EditText input = new EditText(this);
+        input.setText(score.getName());
+        builder.setView(input);
+
+        builder.setPositiveButton("Salvar", (dialog, which) -> {
+            String newName = input.getText().toString();
+            if (!newName.isEmpty()) {
+                score.setName(newName);
+                dbHelper.updateScore(score); // Atualiza no banco
+                updateRankingList(); // Atualiza na tela
+                Toast.makeText(this, "Nome atualizado!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel());
+        builder.show();
+    }
+
+    // --- 3. Janela de Exclusão Individual (DELETE ONE) ---
+    private void showDeleteDialog(Score score) {
+        new AlertDialog.Builder(this)
+                .setTitle("Excluir Registro")
+                .setMessage("Deseja remover a pontuação de " + score.getName() + "?")
+                .setPositiveButton("Sim, Excluir", (dialog, which) -> {
+                    dbHelper.deleteScore(score.getId()); // Deleta apenas este ID
+                    updateRankingList(); // Atualiza lista
+                    Toast.makeText(this, "Registro excluído.", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Não", null)
+                .show();
     }
 }

@@ -30,4 +30,10 @@ public class Score {
 
     public int getPoints() { return points; }
     public void setPoints(int points) { this.points = points; }
+
+    // --- NOVO: Método para exibir o texto na lista ---
+    @Override
+    public String toString() {
+        return name + " ... " + points + " pts";
+    }
 }

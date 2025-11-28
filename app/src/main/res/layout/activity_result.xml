@@ -61,13 +61,21 @@
             android:layout_marginBottom="16dp"/>
 
         <TextView
-            android:id="@+id/tvRanking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="> Loading leaderboard..."
+            android:text="> LEADERBOARD (Toque p/ editar):"
             android:fontFamily="monospace"
             android:textColor="@color/ide_cyan"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp"/>
+
+        <ListView
+            android:id="@+id/lvRanking"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@null"
+            android:divider="@color/ide_comment"
+            android:dividerHeight="1dp"/>
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
